@@ -1,0 +1,18 @@
+---
+- name: Install Java 1.7
+  apt: name=default-jdk state=present
+
+- name: Download Tomcat
+  get_url: url=http://archive.apache.org/dist/tomcat/tomcat-7/v7.0.61/bin/apache-tomcat-7.0.61.tar.gz dest=/opt/apache-tomcat-7.0.61.tar.gz
+
+- name: Extract archive
+  command: chdir=/usr/share /bin/tar xvf /opt/apache-tomcat-7.0.61.tar.gz -C /opt/ creates=/opt/apache-tomcat-7.0.61
+
+- name: Symlink install directory
+  file: src=/opt/apache-tomcat-7.0.61 path=/usr/share/tomcat state=link
+
+- name: Start Tomcat
+  command: nohup /opt/apache-tomcat-7.0.61/bin/startup.sh # Execute command even after you have exited from the shell prompt
+  
+- name: wait for tomcat to start
+  wait_for: port=8080
