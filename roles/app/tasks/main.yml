@@ -11,6 +11,9 @@
 - name: Symlink install directory
   file: src=/opt/apache-tomcat-7.0.61 path=/usr/share/tomcat state=link
 
+- name: Configure Tomcat server
+  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
+
 - name: Start Tomcat
   command: nohup /opt/apache-tomcat-7.0.61/bin/startup.sh # Execute command even after you have exited from the shell prompt
   

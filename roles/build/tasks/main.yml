@@ -1,15 +1,11 @@
 ---
 - name: install Maven
-   apt:
-    name: maven
-    state: installed
+  apt: name=maven state=installed
 - name: install GIT
-  apt:
-   name: git
-   state: installed
+  apt: name=git state=installed
 - name: checkout and build
   shell: "{{item}}"
-   become: true
-   with_items:
+  become: true
+  with_items:
     - git clone "https://github.com/sebsto/webapp.git"
     - cd /root/webapp/;mvn clean install
