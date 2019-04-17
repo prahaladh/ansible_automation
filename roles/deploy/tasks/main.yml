@@ -1,0 +1,4 @@
+---
+- name: deploy the war file
+  synchronize: src=/root/webapp/target/WebApp.war dest=/opt/apache-tomcat-7.0.61/webapps
+  delegate_to: build
